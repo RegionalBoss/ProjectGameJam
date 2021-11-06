@@ -24,7 +24,7 @@ namespace ProjectGameJam
       audioData = gameObject.GetComponent<AudioSource>();
     }
 
-    public void Show(List<string> text, AudioClip audioClip = null, float time = 5, float delay = 1)
+    public void Show(List<DialogText> text, AudioClip audioClip = null, float time = 5, float delay = 1)
     {
       textMesh.text = "";
       audioData.clip = null;
@@ -41,17 +41,18 @@ namespace ProjectGameJam
         StartCoroutine(WaitAndClose(time));
     }
 
-    IEnumerator PopulateText(List<string> text, float delay)
+    IEnumerator PopulateText(List<DialogText> text, float delay)
     {
-      foreach (string line in text)
+      foreach (DialogText line in text)
       {
-        textMesh.text = line;
+        textMesh.gameObject.GetComponent<Animator>().SetTrigger("Fade");
+        textMesh.text = line.text;
         // foreach (string str in line.Split(' '))
         // {
         //   yield return new WaitForSecondsRealtime(0.25f);
         //   textMesh.text += (str + ' ');
         // }
-        yield return new WaitForSecondsRealtime(delay);
+        yield return new WaitForSecondsRealtime(line.delay);
       }
     }
 

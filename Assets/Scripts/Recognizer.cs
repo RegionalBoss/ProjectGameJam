@@ -205,8 +205,8 @@ namespace ProjectGameJam
 
       if (gestureResult.Score > 0.85f)
       {
-        List<string> text = new List<string>();
-        text.Add("Ex duis anim esse esse.");
+        List<DialogText> text = new List<DialogText>();
+        text.Add(new DialogText("Ex duis anim esse esse.", 3));
         dialogContainer.Show(text);
         Debug.Log("rune " + gestureResult.GestureClass + " score: " + gestureResult.Points);
         int usedCount = 0;
