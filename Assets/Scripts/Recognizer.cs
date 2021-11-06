@@ -32,6 +32,8 @@ namespace ProjectGameJam
     private LineRenderer currentGestureLineRenderer;
 
     public GameObject final;
+
+    public ShowDialog dialogContainer;
     public TextMeshProUGUI finalText;
     public Button finalRestart;
 
@@ -203,6 +205,7 @@ namespace ProjectGameJam
 
       if (gestureResult.Score > 0.85f)
       {
+        dialogContainer.Show("Ex duis anim esse esse.");
         Debug.Log("rune " + gestureResult.GestureClass + " score: " + gestureResult.Points);
         int usedCount = 0;
         foreach (string name in usedGestures)
