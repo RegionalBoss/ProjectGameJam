@@ -34,10 +34,9 @@ namespace ProjectGameJam
     public GameObject final;
     public TextMeshProUGUI finalText;
     public Button finalRestart;
-    public TextMesh usedGestures;
+
     public int usedGesturesCount = 0;
-    public Button resetButton;
-    public Button recognizeButton;
+    public List<Gesture> usedGestures = new List<Gesture>();
     public bool canAddNew = false;
 
     public InputField SaveNewFiled;
@@ -45,10 +44,15 @@ namespace ProjectGameJam
 
     public float GlobalScore;
 
+    public GameObject runes;
+
     //GUI
     private string message;
     private string score;
     private bool recognized;
+
+    private float time = 0;
+    private bool timer = false;
 
     void Start()
     {
@@ -72,11 +76,15 @@ namespace ProjectGameJam
         scoreTable += rune.Name + ": " + rune.Score + "\n";
       }
       Debug.Log(scoreTable);
-      usedGestures.text = "";
+      // usedGestures.text = "";
       if (!canAddNew) SaveNewFiled.gameObject.SetActive(false);
       if (SaveNewButton != null) SaveNewButton.onClick.AddListener(SaveNewGesture);
-      if (recognizeButton != null) recognizeButton.onClick.AddListener(OnResult);
-      if (resetButton != null) resetButton.onClick.AddListener(onResetClick);
+    }
+
+    void FixedUpdate()
+    {
+      if (timer)
+        time += Time.deltaTime;
     }
 
     void onResetClick()
@@ -131,6 +139,11 @@ namespace ProjectGameJam
     }
     void Update()
     {
+      if (!canAddNew && time > 2 && timer)
+      {
+        timer = false;
+        OnResult();
+      }
 
       if (canAddNew)
         SaveNewFiled.gameObject.SetActive(true);
@@ -156,12 +169,14 @@ namespace ProjectGameJam
 
         if (Input.GetMouseButtonDown(0))
         {
-
+          if (!canAddNew)
+            timer = true;
           this.ResetLines();
         }
 
         if (Input.GetMouseButton(0))
         {
+          time = 0;
           points.Add(new Point(virtualKeyPosition.x, -virtualKeyPosition.y, strokeId));
 
           currentGestureLineRenderer.positionCount = ++vertexCount;
@@ -178,9 +193,44 @@ namespace ProjectGameJam
     void OnResult()
     {
       recognized = true;
-      if (usedGesturesCount > 8)
+      runes.GetComponent<RunePlaceholder>().AddLines(gestureLinesRenderer);
+      usedGesturesCount++;
+      Gesture candidate = new Gesture(points.ToArray());
+      Result gestureResult = PointCloudRecognizer.Classify(candidate, runesSet.ToArray());
+
+      message = gestureResult.GestureClass + " " + gestureResult.Score;
+      if (gestureResult.Score > 0.85f)
+      {
+        // usedGestures.text += gestureResult.GestureClass + "\n";
+        Debug.Log("rune score: " + gestureResult.Points);
+        GlobalScore += gestureResult.Points;
+        score = GlobalScore + " - " + gestureResult.Points;
+        Gesture used = null;
+        bool found = false;
+        foreach (Gesture rune in runesSet)
+        {
+          if (rune.Name == gestureResult.GestureClass && !found)
+          {
+            used = rune;
+            Debug.Log("Change rune score: " + rune.Name + ", prev score: " + rune.Score);
+            int usedRuneCount = 0;
+            foreach (Gesture usedRune in usedGestures)
+            {
+              if (usedRune.Name == gestureResult.GestureClass) usedRuneCount += 1;
+            }
+            int newScore = (int)Math.Round(gestureResult.Points - usedRuneCount);
+            rune.Score -= newScore;
+            Debug.Log("Changed rune score: " + rune.Name + ", new score: " + rune.Score);
+            found = true;
+          }
+        }
+        if (used != null)
+          usedGestures.Add(used);
+      }
+      if (usedGesturesCount == 10)
       {
         recognized = false;
+        timer = false;
         ResetLines();
         drawArea = new Rect();
         if (final != null && finalText != null)
@@ -189,44 +239,17 @@ namespace ProjectGameJam
             finalText.text += rune.Name;
           final.SetActive(true);
         }
-        resetButton.gameObject.SetActive(false);
-        recognizeButton.gameObject.SetActive(false);
         finalRestart.onClick.AddListener(restartScene);
         return;
       }
-
-      Gesture candidate = new Gesture(points.ToArray());
-      Result gestureResult = PointCloudRecognizer.Classify(candidate, runesSet.ToArray());
-
-      message = gestureResult.GestureClass + " " + gestureResult.Score;
-      if (gestureResult.Score > 0.85f)
-      {
-        usedGestures.text += gestureResult.GestureClass + "\n";
-        usedGesturesCount++;
-        Debug.Log("rune score: " + gestureResult.Points);
-        GlobalScore += gestureResult.Points;
-        score = GlobalScore + " - " + gestureResult.Points;
-        bool found = false;
-        foreach (Gesture rune in runesSet)
-        {
-          if (rune.Name == gestureResult.GestureClass && !found)
-          {
-            Debug.Log("Change rune score: " + rune.Name + ", prev score: " + rune.Score);
-            int newScore = (int)Math.Round(gestureResult.Points * 0.5f);
-            rune.Score -= newScore >= 0 && newScore <= 1 ? rune.Score : newScore;
-            Debug.Log("Changed rune score: " + rune.Name + ", new score: " + rune.Score);
-            found = true;
-          }
-        }
-        ResetLines();
-      }
+      ResetLines();
       // usedSet.Add(gestureResult.GestureClass);
     }
 
     void OnGUI()
     {
       GUIStyle style = new GUIStyle();
-      GUI.Box(drawArea, "", style);
+      GUI.Box(drawArea, "");
 
       GUIStyle messageStyle = new GUIStyle();
       messageStyle.normal.textColor = Color.black;
