@@ -225,8 +225,9 @@ namespace ProjectGameJam
         drawArea = new Rect();
         if (final != null && finalText != null)
         {
-          foreach (Gesture rune in runesSet)
-            finalText.text += rune.Name;
+          finalText.text = "Score: " + GlobalScore;
+          // foreach (Gesture rune in runesSet)
+          //   finalText.text += rune.Name;
           final.SetActive(true);
         }
         finalRestart.onClick.AddListener(restartScene);

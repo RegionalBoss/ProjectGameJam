@@ -13,7 +13,7 @@ namespace ProjectGameJam
       Transform lastChild = ts[ts.Length - 1];
       Debug.Log(lastChild.ToString());
       gameObject.transform.localPosition = new Vector3(0, 0, 0);
-      gameObject.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+      gameObject.transform.localScale = new Vector3(0.02f, 0.02f, 1);
     }
   }
 }
