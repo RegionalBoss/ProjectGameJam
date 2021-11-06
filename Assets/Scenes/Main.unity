@@ -496,6 +496,7 @@ MonoBehaviour:
   finalText: {fileID: 1231682780}
   finalRestart: {fileID: 872015939}
   usedGesturesCount: 0
+  usedGestures: []
   canAddNew: 0
   SaveNewFiled: {fileID: 920747764}
   SaveNewButton: {fileID: 2023630197}

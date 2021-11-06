@@ -215,36 +215,6 @@ namespace ProjectGameJam
         score = GlobalScore + " - " + gestureResult.Points;
       }
 
-      // GlobalScore += gestureResult.Points;
-      // if (gestureResult.Score > 0.85f)
-      // {
-      //   // usedGestures.text += gestureResult.GestureClass + "\n";
-      //   Debug.Log("rune score: " + gestureResult.Points);
-      //   Gesture used = null;
-      //   bool found = false;
-      //   foreach (Gesture rune in runesSet)
-      //   {
-      //     if (rune.Name == gestureResult.GestureClass && !found)
-      //     {
-      //       found = true;
-      //       used = rune;
-      //       Debug.Log("Change rune score: " + rune.Name + ", prev score: " + rune.Score);
-      //       int usedRuneCount = 0;
-      //       foreach (Gesture usedRune in usedGestures)
-      //       {
-      //         if (usedRune.Name == gestureResult.GestureClass) usedRuneCount += 1;
-      //       }
-      //       Debug.Log("Used rune times: " + usedRuneCount + " - " + gestureResult.Points);
-      //       int newScore = (int)Math.Round(gestureResult.Points - usedRuneCount);
-      //       rune.Score -= newScore;
-      //       Debug.Log("Changed rune score: " + rune.Name + ", new score: " + newScore);
-      //     }
-      //   }
-      //   if (used != null)
-      //     usedGestures.Add(used);
-      // }
-      // message = GlobalScore + ": " + gestureResult.GestureClass + " " + gestureResult.Score;
-      // score = GlobalScore + " - " + gestureResult.Points;
       if (usedGesturesCount == 10)
       {
         recognized = false;

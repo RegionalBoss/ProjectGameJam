@@ -17,6 +17,7 @@ namespace ProjectGameJam
   {
     public Material bloodMaterial;
     public int runesCount = 8;
+    public RuntimeAnimatorController animator;
     public List<Transform> runesPositions = new List<Transform>();
 
     public void AddLines(List<LineRenderer> Lines)
@@ -54,6 +55,8 @@ namespace ProjectGameJam
           obj.AddComponent<MeshRenderer>();
           obj.AddComponent<MeshFilter>();
           obj.AddComponent<MoveAndResize>();
+          obj.AddComponent<Animator>();
+          obj.GetComponent<Animator>().runtimeAnimatorController = animator;
           obj.GetComponent<MeshFilter>().mesh = mesh;
           obj.GetComponent<MeshRenderer>().material = bloodMaterial;
 
