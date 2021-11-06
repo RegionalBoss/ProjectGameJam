@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400000}
   - component: {fileID: 12000000}
+  - component: {fileID: 7299336204136407263}
   m_Layer: 0
   m_Name: GestureOnScreen
   m_TagString: Untagged
@@ -81,7 +82,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.1333313
+        value: 0.11110687
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -90,7 +91,7 @@ LineRenderer:
         outWeight: 0
       - serializedVersion: 3
         time: 0.47304887
-        value: 0.24444199
+        value: 0.20000076
         inSlope: 0.07462343
         outSlope: 0.07462343
         tangentMode: 0
@@ -141,8 +142,27 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 5
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!95 &7299336204136407263
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 459752dabfd886d4fae44e9ac0616b54, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

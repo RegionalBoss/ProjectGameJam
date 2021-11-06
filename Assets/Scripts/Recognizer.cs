@@ -105,8 +105,10 @@ namespace ProjectGameJam
         foreach (LineRenderer lineRenderer in gestureLinesRenderer)
         {
 
-          lineRenderer.positionCount = 0;
-          Destroy(lineRenderer.gameObject);
+          // lineRenderer.positionCount = 0;
+          Debug.Log("destroy: " + lineRenderer.gameObject.GetComponent<Animator>().GetBool("Destroy"));
+          lineRenderer.gameObject.GetComponent<Animator>().SetTrigger("destroy");
+          // Destroy(lineRenderer.gameObject);
         }
 
         gestureLinesRenderer.Clear();

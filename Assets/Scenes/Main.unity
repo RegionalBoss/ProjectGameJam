@@ -1381,6 +1381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RunesPlaceholder
       objectReference: {fileID: 0}
+    - target: {fileID: 3756554470056680629, guid: b33cee04c5636b14bae74d716be0f450, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 9100000, guid: 3a65f76ca1601b54193c7ba8f95b6e4e, type: 2}
     - target: {fileID: 8924914825844012667, guid: b33cee04c5636b14bae74d716be0f450, type: 3}
       propertyPath: m_RootOrder
       value: 5

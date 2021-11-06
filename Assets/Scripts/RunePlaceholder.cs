@@ -46,8 +46,8 @@ namespace ProjectGameJam
 
           Mesh mesh = new Mesh();
           mesh.name = "LineMesh";
-          lineRenderer.endWidth = 0.18f;
-          lineRenderer.startWidth = 0.34f;
+          // lineRenderer.endWidth = 0.20f;
+          // lineRenderer.startWidth = 0.11f;
           lineRenderer.BakeMesh(mesh);
           // lineRenderer.SetPositions(newPos);
 
