@@ -16,7 +16,7 @@ public class PlayPaperShow : StateMachineBehaviour
   {
     AudioSource audioData = animator.gameObject.GetComponent<AudioSource>();
     audioData.clip = audioClip;
-    audioData.Play(0);
+    audioData.Play(1);
   }
 
   // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
