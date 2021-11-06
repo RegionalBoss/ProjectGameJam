@@ -11,9 +11,10 @@ namespace ProjectGameJam
       Transform[] ts = parent.GetComponentsInChildren<Transform>();
       Debug.Log(ts.Length);
       Transform lastChild = ts[ts.Length - 1];
-      Debug.Log(lastChild.ToString());
-      gameObject.transform.localPosition = new Vector3(0, 0, 0);
-      gameObject.transform.localScale = new Vector3(0.02f, 0.02f, 1);
+      Debug.Log("last child: " + lastChild.ToString());
+      gameObject.transform.localPosition = new Vector3(0, 0.5f, 0);
+      print(gameObject.transform.lossyScale.ToString());
+      gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 1);
     }
   }
 }
