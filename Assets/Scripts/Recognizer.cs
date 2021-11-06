@@ -58,7 +58,7 @@ namespace ProjectGameJam
     {
 
       platform = Application.platform;
-      drawArea = new Rect(Screen.width * 0.3f, 0, Screen.width - Screen.width / 1.62f, Screen.height);
+      drawArea = new Rect(Screen.width * 0.3f, -500, Screen.width - Screen.width / 1.62f, Screen.height);
 
       //Load user custom gestures
       // string[] runesXml = Directory.GetFiles(Application.persistentDataPath, "*.xml");
@@ -266,8 +266,7 @@ namespace ProjectGameJam
 
     void OnGUI()
     {
-      GUIStyle style = new GUIStyle();
-      GUI.Box(drawArea, "");
+      GUI.Box(drawArea, "", new GUIStyle());
 
       GUIStyle messageStyle = new GUIStyle();
       messageStyle.normal.textColor = Color.black;
