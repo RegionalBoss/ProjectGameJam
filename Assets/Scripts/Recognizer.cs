@@ -36,7 +36,7 @@ namespace ProjectGameJam
     public Button finalRestart;
 
     public int usedGesturesCount = 0;
-    public List<Gesture> usedGestures = new List<Gesture>();
+    public List<string> usedGestures = new List<string>();
     public bool canAddNew = false;
 
     public InputField SaveNewFiled;
@@ -66,8 +66,8 @@ namespace ProjectGameJam
       foreach (TextAsset runeXml in runesXml)
       {
         Gesture rune = GestureIO.ReadGestureFromXML(runeXml.text);
-        float score = UnityEngine.Random.Range(-3.0f, 3.0f);
-        rune.Score = (int)Math.Round(score);
+        float _score = UnityEngine.Random.Range(-3.0f, 3.0f);
+        rune.Score = (int)Math.Round(_score);
         runesSet.Add(rune);
       }
       string scoreTable = "";
@@ -197,36 +197,54 @@ namespace ProjectGameJam
       usedGesturesCount++;
       Gesture candidate = new Gesture(points.ToArray());
       Result gestureResult = PointCloudRecognizer.Classify(candidate, runesSet.ToArray());
-
       message = gestureResult.GestureClass + " " + gestureResult.Score;
+
       if (gestureResult.Score > 0.85f)
       {
-        // usedGestures.text += gestureResult.GestureClass + "\n";
-        Debug.Log("rune score: " + gestureResult.Points);
-        GlobalScore += gestureResult.Points;
-        score = GlobalScore + " - " + gestureResult.Points;
-        Gesture used = null;
-        bool found = false;
-        foreach (Gesture rune in runesSet)
+        Debug.Log("rune " + gestureResult.GestureClass + " score: " + gestureResult.Points);
+        int usedCount = 0;
+        foreach (string name in usedGestures)
         {
-          if (rune.Name == gestureResult.GestureClass && !found)
-          {
-            used = rune;
-            Debug.Log("Change rune score: " + rune.Name + ", prev score: " + rune.Score);
-            int usedRuneCount = 0;
-            foreach (Gesture usedRune in usedGestures)
-            {
-              if (usedRune.Name == gestureResult.GestureClass) usedRuneCount += 1;
-            }
-            int newScore = (int)Math.Round(gestureResult.Points - usedRuneCount);
-            rune.Score -= newScore;
-            Debug.Log("Changed rune score: " + rune.Name + ", new score: " + rune.Score);
-            found = true;
-          }
+          if (name == gestureResult.GestureClass) usedCount++;
         }
-        if (used != null)
-          usedGestures.Add(used);
+        Debug.Log("usedCount: " + usedCount);
+        int newScore = (int)Math.Round(gestureResult.Points - usedCount);
+        GlobalScore += newScore;
+        Debug.Log("GlobalScore: " + GlobalScore);
+        usedGestures.Add(gestureResult.GestureClass);
+        score = GlobalScore + " - " + gestureResult.Points;
       }
+
+      // GlobalScore += gestureResult.Points;
+      // if (gestureResult.Score > 0.85f)
+      // {
+      //   // usedGestures.text += gestureResult.GestureClass + "\n";
+      //   Debug.Log("rune score: " + gestureResult.Points);
+      //   Gesture used = null;
+      //   bool found = false;
+      //   foreach (Gesture rune in runesSet)
+      //   {
+      //     if (rune.Name == gestureResult.GestureClass && !found)
+      //     {
+      //       found = true;
+      //       used = rune;
+      //       Debug.Log("Change rune score: " + rune.Name + ", prev score: " + rune.Score);
+      //       int usedRuneCount = 0;
+      //       foreach (Gesture usedRune in usedGestures)
+      //       {
+      //         if (usedRune.Name == gestureResult.GestureClass) usedRuneCount += 1;
+      //       }
+      //       Debug.Log("Used rune times: " + usedRuneCount + " - " + gestureResult.Points);
+      //       int newScore = (int)Math.Round(gestureResult.Points - usedRuneCount);
+      //       rune.Score -= newScore;
+      //       Debug.Log("Changed rune score: " + rune.Name + ", new score: " + newScore);
+      //     }
+      //   }
+      //   if (used != null)
+      //     usedGestures.Add(used);
+      // }
+      // message = GlobalScore + ": " + gestureResult.GestureClass + " " + gestureResult.Score;
+      // score = GlobalScore + " - " + gestureResult.Points;
       if (usedGesturesCount == 10)
       {
         recognized = false;
