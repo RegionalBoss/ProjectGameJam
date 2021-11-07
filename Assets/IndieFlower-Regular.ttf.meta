@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6ae5ed69b9ee312419c775eafa955389
+guid: 9705403304745d0488bcfa35f096308f
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,8 +9,9 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Nothing You Could Do
-  fallbackFontReferences: []
+  - Indie Flower
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 7a0dd5c98e0a18b44beb6906dafabb33, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
