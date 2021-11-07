@@ -83,6 +83,7 @@ namespace ProjectGameJam
     }
     void Update()
     {
+      if (Input.GetKeyDown("space")) SkipClick();
       if (time > 50)
         StartCoroutine(LoadNext());
     }

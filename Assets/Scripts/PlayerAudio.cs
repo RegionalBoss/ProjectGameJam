@@ -56,7 +56,7 @@ namespace ProjectGameJam
       List<DialogText> dialogList = new List<DialogText>();
       dialogList.Add(dialogText);
       yield return new WaitForSecondsRealtime(0.5f);
-      dialog.Show(dialogList);
+      dialog.Show(dialogList, 2);
     }
 
     void ShowDialog(List<DialogText> text)

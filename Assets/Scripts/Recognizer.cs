@@ -53,9 +53,12 @@ namespace ProjectGameJam
     private string message;
     private string score;
     private bool recognized;
+    public Button resetButton;
 
     private float time = 0;
     private bool timer = false;
+    public Image AngelFinal;
+    public Image DemonFinal;
 
     public AudioSource creatureAudio;
 
@@ -92,6 +95,7 @@ namespace ProjectGameJam
       // usedGestures.text = "";
       if (!canAddNew) SaveNewFiled.gameObject.SetActive(false);
       if (SaveNewButton != null) SaveNewButton.onClick.AddListener(SaveNewGesture);
+      if (resetButton != null) resetButton.onClick.AddListener(onResetClick);
     }
 
     void FixedUpdate()
@@ -268,34 +272,35 @@ namespace ProjectGameJam
 
       if (usedGesturesCount == 10)
       {
+        StartCoroutine(showFinal());
         recognized = false;
         timer = false;
         ResetLines();
-        drawArea = new Rect();
-        if (final != null && finalText != null)
-        {
-          finalText.text = GlobalScore > 0 ? "The ritual was successful" : "The ritual failed!";
-          // foreach (Gesture rune in runesSet)
-          //   finalText.text += rune.Name;
-          final.SetActive(true);
-        }
-        finalRestart.onClick.AddListener(restartScene);
         return;
       }
       ResetLines();
       // usedSet.Add(gestureResult.GestureClass);
     }
 
+    IEnumerator showFinal()
+    {
+      Debug.Log("Show final!");
+      yield return new WaitForSeconds(3.0f);
+      Debug.Log("Show dialog!");
+      drawArea = new Rect();
+      if (final != null && finalText != null)
+      {
+        PaperState _state = runes.GetComponent<RunePlaceholder>().state;
+        finalText.text = GlobalScore > 0 ? "The ritual was successful" : "The ritual failed!";
+        if (_state == PaperState.Demon) DemonFinal.gameObject.SetActive(true);
+        else if (_state == PaperState.Angel) AngelFinal.gameObject.SetActive(true);
+        final.SetActive(true);
+      }
+      finalRestart.onClick.AddListener(restartScene);
+    }
     void OnGUI()
     {
       GUI.Box(drawArea, "", new GUIStyle());
-
-      GUIStyle messageStyle = new GUIStyle();
-      messageStyle.normal.textColor = Color.black;
-      messageStyle.fontSize = 64;
-
-      GUI.Label(new Rect(Screen.width - 500, 40, 500, 50), message, messageStyle);
-      GUI.Label(new Rect(Screen.width - 500, 100, 500, 50), score, messageStyle);
 
     }
   }
