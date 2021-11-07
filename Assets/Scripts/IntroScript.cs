@@ -12,8 +12,11 @@ namespace ProjectGameJam
 
   public class IntroScript : MonoBehaviour
   {
+    public float transitionTime = 1.0f;
     public AudioClip audioClip;
     public ShowDialog dialog;
+    public Image sceneLoader;
+    public Button skipButton;
     private float time;
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,7 @@ namespace ProjectGameJam
       text.Add(new DialogText("I tried getting rid of the scroll, only to find it back in my pocket. It seems I am tethered to it… for better or worse.", 15));
       Debug.Log(text + " " + audioClip.ToString());
       dialog.Show(text, audioClip, 5, 10);
+      skipButton.onClick.AddListener(SkipClick);
     }
 
     // Update is called once per frame
@@ -32,9 +36,21 @@ namespace ProjectGameJam
     {
       time += Time.deltaTime;
     }
+    void SkipClick()
+    {
+      StartCoroutine(LoadNext());
+    }
     void Update()
     {
-      if (time > 60) SceneManager.LoadScene(1);
+      if (time > 60)
+        StartCoroutine(LoadNext());
+    }
+
+    IEnumerator LoadNext()
+    {
+      sceneLoader.GetComponent<Animator>().SetTrigger("Show");
+      yield return new WaitForSecondsRealtime(transitionTime);
+      SceneManager.LoadScene(1);
     }
   }
 
