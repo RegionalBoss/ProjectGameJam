@@ -33,7 +33,8 @@ namespace ProjectGameJam
 
     public GameObject final;
 
-    public ShowDialog dialogContainer;
+    public PlayerAudio playerAudio;
+
     public TextMeshProUGUI finalText;
     public Button finalRestart;
 
@@ -56,11 +57,21 @@ namespace ProjectGameJam
     private float time = 0;
     private bool timer = false;
 
+    public AudioSource creatureAudio;
+
+    public List<AudioClip> angryGrowl = new List<AudioClip>();
+    public List<AudioClip> neutralGrowl = new List<AudioClip>();
+    public List<AudioClip> goodGrowl = new List<AudioClip>();
+
     void Start()
     {
 
+      int _envState = UnityEngine.Random.Range(0, 10);
+      if (_envState > 5) runes.GetComponent<RunePlaceholder>().SetState(PaperState.Angel);
+      else runes.GetComponent<RunePlaceholder>().SetState(PaperState.Demon);
+
       platform = Application.platform;
-      drawArea = new Rect(Screen.width * 0.3f, -500, Screen.width - Screen.width / 1.62f, Screen.height);
+      drawArea = new Rect(Screen.width * 0.3f, -400, Screen.width - Screen.width / 1.62f, Screen.height);
 
       //Load user custom gestures
       // string[] runesXml = Directory.GetFiles(Application.persistentDataPath, "*.xml");
@@ -205,9 +216,7 @@ namespace ProjectGameJam
 
       if (gestureResult.Score > 0.85f)
       {
-        List<DialogText> text = new List<DialogText>();
-        text.Add(new DialogText("Ex duis anim esse esse.", 3));
-        dialogContainer.Show(text);
+
         Debug.Log("rune " + gestureResult.GestureClass + " score: " + gestureResult.Points);
         int usedCount = 0;
         foreach (string name in usedGestures)
@@ -216,10 +225,45 @@ namespace ProjectGameJam
         }
         Debug.Log("usedCount: " + usedCount);
         int newScore = (int)Math.Round(gestureResult.Points - usedCount);
+
+        if (creatureAudio != null && angryGrowl.Count > 0 && neutralGrowl.Count > 0 && goodGrowl.Count > 0)
+        {
+
+          if (newScore < 0)
+          {
+            int _score = UnityEngine.Random.Range(0, angryGrowl.Count);
+            creatureAudio.clip = angryGrowl[_score];
+            creatureAudio.Play();
+            playerAudio.PlayBad();
+            // Camera.main.GetComponent<Animator>().SetTrigger("shake");
+          }
+          if (newScore > 0)
+          {
+            int _score = UnityEngine.Random.Range(0, goodGrowl.Count);
+            creatureAudio.clip = goodGrowl[_score];
+            creatureAudio.Play();
+            playerAudio.PlayGood();
+          }
+          if (newScore == 0)
+          {
+            int _score = UnityEngine.Random.Range(0, neutralGrowl.Count);
+            creatureAudio.clip = neutralGrowl[_score];
+            creatureAudio.Play();
+            playerAudio.PlayNeutral();
+          }
+        }
+
         GlobalScore += newScore;
         Debug.Log("GlobalScore: " + GlobalScore);
         usedGestures.Add(gestureResult.GestureClass);
         score = GlobalScore + " - " + gestureResult.Points;
+      }
+      else
+      {
+        int _score = UnityEngine.Random.Range(0, neutralGrowl.Count - 1);
+        creatureAudio.clip = neutralGrowl[_score];
+        creatureAudio.Play();
+        playerAudio.PlayNeutral();
       }
 
       if (usedGesturesCount == 10)
@@ -230,7 +274,7 @@ namespace ProjectGameJam
         drawArea = new Rect();
         if (final != null && finalText != null)
         {
-          finalText.text = "Score: " + GlobalScore;
+          finalText.text = GlobalScore > 0 ? "Ritual se zdařil" : "Ritual se nezdařil";
           // foreach (Gesture rune in runesSet)
           //   finalText.text += rune.Name;
           final.SetActive(true);

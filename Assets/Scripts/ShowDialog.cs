@@ -24,18 +24,15 @@ namespace ProjectGameJam
       audioData = gameObject.GetComponent<AudioSource>();
     }
 
-    public void Show(List<DialogText> text, AudioClip audioClip = null, float time = 5, float delay = 1)
+    public void Show(List<DialogText> text, float time = 5, float delay = 1)
     {
       textMesh.text = "";
       audioData.clip = null;
       gameObject.SetActive(true);
       animate = true;
-      print("time: " + time);
+      Debug.Log("time: " + time);
       gameObject.GetComponent<Animator>().SetBool("Show", true);
 
-      // textMesh.text = text;
-      audioData.clip = audioClip;
-      audioData.Play(0);
       StartCoroutine(PopulateText(text, delay));
       if (!noClose)
         StartCoroutine(WaitAndClose(time));
@@ -45,6 +42,11 @@ namespace ProjectGameJam
     {
       foreach (DialogText line in text)
       {
+        if (line.clip != null)
+        {
+          audioData.clip = line.clip;
+          audioData.Play(0);
+        }
         textMesh.gameObject.GetComponent<Animator>().SetTrigger("Fade");
         textMesh.text = line.text;
         // foreach (string str in line.Split(' '))

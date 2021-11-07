@@ -13,12 +13,30 @@ using PDollarGestureRecognizer;
 namespace ProjectGameJam
 {
 
+  public enum PaperState
+  {
+    Demon,
+    Angel
+  }
+
   public class RunePlaceholder : MonoBehaviour
   {
     public Material bloodMaterial;
+    public SpriteRenderer overlay;
+
+    public List<Sprite> demonOverlays = new List<Sprite>();
+    public List<Sprite> angelOverlays = new List<Sprite>();
+
+    private PaperState state;
+
     public int runesCount = 8;
     public RuntimeAnimatorController animator;
     public List<Transform> runesPositions = new List<Transform>();
+
+    public void SetState(PaperState newState)
+    {
+      this.state = newState;
+    }
 
     public void AddLines(List<LineRenderer> Lines)
     {
