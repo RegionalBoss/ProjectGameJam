@@ -206,7 +206,7 @@ namespace ProjectGameJam
 
     void restartScene()
     {
-      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+      SceneManager.LoadScene(1);
     }
 
     void OnResult()
