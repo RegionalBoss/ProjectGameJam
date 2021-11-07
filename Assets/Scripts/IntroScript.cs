@@ -9,7 +9,19 @@ using TMPro;
 
 namespace ProjectGameJam
 {
+  [Serializable]
 
+  public class ImageSet
+  {
+    public Sprite image;
+    public float delay;
+
+    public ImageSet(Sprite image, float delay)
+    {
+      this.image = image;
+      this.delay = delay;
+    }
+  }
   public class IntroScript : MonoBehaviour
   {
     public TextMeshProUGUI textMesh;
@@ -17,7 +29,10 @@ namespace ProjectGameJam
     public float transitionTime = 1.0f;
     public AudioClip audioClip;
     public Image sceneLoader;
+    public Image imagesPlace;
     public Button skipButton;
+    [SerializeField]
+    public List<ImageSet> imagesSet = new List<ImageSet>();
     private List<DialogText> dialogTexts = new List<DialogText>();
     private float time;
     // Start is called before the first frame update
@@ -30,7 +45,18 @@ namespace ProjectGameJam
       dialogTexts.Add(new DialogText("I tried getting rid of the scroll, only to find it back in my pocket. It seems I am tethered to it… for better or worse.", 10));
       Debug.Log("text: " + dialogTexts);
       // dialog.GetComponent<ShowDialog>().Show(dialogTexts, null, 5, 10);
+      StartCoroutine(ShowImages());
       StartCoroutine(ShowText());
+    }
+
+    IEnumerator ShowImages()
+    {
+      foreach (ImageSet sprite in imagesSet)
+      {
+        imagesPlace.gameObject.GetComponent<Animator>().SetTrigger("fade");
+        imagesPlace.sprite = sprite.image;
+        yield return new WaitForSecondsRealtime(sprite.delay);
+      }
     }
 
     IEnumerator ShowText()
@@ -57,7 +83,7 @@ namespace ProjectGameJam
     }
     void Update()
     {
-      if (time > 56)
+      if (time > 50)
         StartCoroutine(LoadNext());
     }
 

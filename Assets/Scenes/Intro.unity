@@ -123,6 +123,101 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &54113360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 54113361}
+  - component: {fileID: 54113363}
+  - component: {fileID: 54113362}
+  - component: {fileID: 54113364}
+  m_Layer: 5
+  m_Name: Images
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &54113361
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54113360}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 798998761}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 4.798, y: -36.3839}
+  m_SizeDelta: {x: 597.03, y: 255.2177}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &54113362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54113360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 6f33ef0f8021747459e080d12598b626, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &54113363
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54113360}
+  m_CullTransparentMesh: 1
+--- !u!95 &54113364
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54113360}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4731c0ad56c23fa43a80ee7a7bc3eb94, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &798998757
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +312,7 @@ RectTransform:
   - {fileID: 813611613}
   - {fileID: 1034826432}
   - {fileID: 1857374629}
+  - {fileID: 54113361}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -757,7 +853,31 @@ MonoBehaviour:
   transitionTime: 1
   audioClip: {fileID: 8300000, guid: 918f1f41ab20b4748a99246212eb7a3a, type: 3}
   sceneLoader: {fileID: 1857374630}
+  imagesPlace: {fileID: 54113362}
   skipButton: {fileID: 813611615}
+  imagesSet:
+  - image: {fileID: 21300000, guid: 6f33ef0f8021747459e080d12598b626, type: 3}
+    delay: 11
+  - image: {fileID: 21300000, guid: 6d2d7cf29018378439ae882ff2fcca09, type: 3}
+    delay: 4
+  - image: {fileID: 21300000, guid: 85f65f75a1f994642b4b1249a5086866, type: 3}
+    delay: 4
+  - image: {fileID: 21300000, guid: cedde13feb892e84495358459bc41875, type: 3}
+    delay: 4
+  - image: {fileID: 21300000, guid: 85f65f75a1f994642b4b1249a5086866, type: 3}
+    delay: 7
+  - image: {fileID: 21300000, guid: 0215d5cb5451f4c4fbdb97fcb20554fc, type: 3}
+    delay: 4
+  - image: {fileID: 21300000, guid: 17317bcbde0966c44bb1241b217b2607, type: 3}
+    delay: 4
+  - image: {fileID: 21300000, guid: 258a1c0f9f7a31145989060a7109bd18, type: 3}
+    delay: 2
+  - image: {fileID: 21300000, guid: 24b94f74d3655764ea2d1d9d98778ffc, type: 3}
+    delay: 2
+  - image: {fileID: 21300000, guid: be887ed9909fe754fbd5873c6d6e67b4, type: 3}
+    delay: 2
+  - image: {fileID: 21300000, guid: 85f65f75a1f994642b4b1249a5086866, type: 3}
+    delay: 10
 --- !u!114 &1229514333
 MonoBehaviour:
   m_ObjectHideFlags: 0

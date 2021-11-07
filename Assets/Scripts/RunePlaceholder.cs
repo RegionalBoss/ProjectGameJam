@@ -27,29 +27,38 @@ namespace ProjectGameJam
     public List<Sprite> demonOverlays = new List<Sprite>();
     public List<Sprite> angelOverlays = new List<Sprite>();
 
-    private PaperState state;
+    public PaperState state;
 
     public int runesCount = 8;
     public RuntimeAnimatorController animator;
     public List<Transform> runesPositions = new List<Transform>();
+    private int lastRune = 0;
 
+    void Start()
+    {
+      overlay.sprite = null;
+    }
     public void SetState(PaperState newState)
     {
-      this.state = newState;
+      state = newState;
     }
 
     public void AddLines(List<LineRenderer> Lines)
     {
       Transform runePlaceholder = null;
+      int positionCount = 0;
       Debug.Log("Find position: " + runesPositions.Count);
+      int i = 0;
       foreach (Transform pos in runesPositions)
       {
         if (runePlaceholder == null && !pos.gameObject.GetComponent<RunePosition>().isUsed)
         {
           Debug.Log("Found position: " + pos.ToString());
+          positionCount = i;
           runePlaceholder = pos;
           pos.gameObject.GetComponent<RunePosition>().isUsed = true;
         }
+        i++;
       }
       if (runePlaceholder == null) return;
       foreach (LineRenderer line in Lines)
@@ -81,13 +90,25 @@ namespace ProjectGameJam
           GameObject GO = Instantiate(obj);
           Destroy(obj);
           GO.transform.parent = runePlaceholder.transform;
+          lastRune = positionCount;
         }
       }
     }
 
     void Update()
     {
-
+      if (lastRune == 7)
+      {
+        if (state == PaperState.Demon)
+        {
+          overlay.sprite = demonOverlays[1];
+        }
+        if (state == PaperState.Angel)
+        {
+          overlay.sprite = angelOverlays[0];
+        }
+        overlay.gameObject.SetActive(true);
+      }
     }
   }
 }

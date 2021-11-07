@@ -274,7 +274,7 @@ namespace ProjectGameJam
         drawArea = new Rect();
         if (final != null && finalText != null)
         {
-          finalText.text = GlobalScore > 0 ? "Ritual se zdařil" : "Ritual se nezdařil";
+          finalText.text = GlobalScore > 0 ? "The ritual was successful" : "The ritual failed!";
           // foreach (Gesture rune in runesSet)
           //   finalText.text += rune.Name;
           final.SetActive(true);

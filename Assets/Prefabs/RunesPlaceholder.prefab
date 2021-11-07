@@ -284,8 +284,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodMaterial: {fileID: 2100000, guid: 6284cade32dd0d84bb4a8cf67ce56ba9, type: 2}
   overlay: {fileID: 4777847554983063437}
-  demonOverlays: []
-  angelOverlays: []
+  demonOverlays:
+  - {fileID: 21300000, guid: 60cd775d2de212248afd67cb21988491, type: 3}
+  - {fileID: 21300000, guid: 145380c15b513284c9725210790d99e4, type: 3}
+  - {fileID: 21300000, guid: 6e5328eb7b312b34db24ea88287d240c, type: 3}
+  angelOverlays:
+  - {fileID: 21300000, guid: 23935f9dfe64350439dbe809436b7606, type: 3}
+  state: 0
   runesCount: 8
   animator: {fileID: 0}
   runesPositions:
@@ -353,13 +358,14 @@ GameObject:
   m_Component:
   - component: {fileID: 749294374816421762}
   - component: {fileID: 4777847554983063437}
+  - component: {fileID: 2800162548477770716}
   m_Layer: 0
   m_Name: overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &749294374816421762
 Transform:
   m_ObjectHideFlags: 0
@@ -368,7 +374,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2863955142693153503}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3299687319008614967}
@@ -414,7 +420,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 23935f9dfe64350439dbe809436b7606, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -422,9 +428,28 @@ SpriteRenderer:
   m_Size: {x: 16, y: 21.600527}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2800162548477770716
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2863955142693153503}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6bd5802e32ac9f3469d2035e183a256e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3154344452475797595
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +524,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e8dfcdc25dda0540843d2d190d86962, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 907ceb2073d3eca4082b58e54cfb4cb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
